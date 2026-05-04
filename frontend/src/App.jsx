@@ -13,10 +13,11 @@ import CustomerHistory from './pages/user/CustomerHistory'
 import StaffDashboard from './pages/staff/StaffDashboard'
 
 // Admin
-import AdminDashboard  from './pages/admin/AdminDashboard'
-import AdminQueuePage  from './pages/admin/AdminQueuePage'
-import ManageUsers     from './pages/admin/ManageUsers'
-import ManageService   from './pages/admin/ManageService'
+import AdminDashboard       from './pages/admin/AdminDashboard'
+import AdminQueuePage       from './pages/admin/AdminQueuePage'
+import ManageUsers          from './pages/admin/ManageUsers'
+import ManageService        from './pages/admin/ManageService'
+import MonitorTransactions  from './pages/admin/MonitorTransactions'
 
 const App = () => {
   return (
@@ -38,6 +39,7 @@ const App = () => {
         <Route path="/admin/queue/:dept"    element={<AdminQueuePage />} />
         <Route path="/admin/users"          element={<ManageUsers />} />
         <Route path="/admin/service"        element={<ManageService />} />
+        <Route path="/admin/transactions"   element={<MonitorTransactions />} />
       </Routes>
     </div>
   )

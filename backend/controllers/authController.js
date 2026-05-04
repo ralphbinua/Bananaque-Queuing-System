@@ -69,10 +69,27 @@ exports.updateMe = async (req, res) => {
     const user = await User.findByIdAndUpdate(
       req.user._id,
       { name: name.trim() },
-      { new: true }
+      { returnDocument: 'after' }
     ).select('-password').populate('department', 'name');
     res.json(user);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 };
+
+// PUT /api/auth/change-password — any logged-in user changes their password
+exports.changePassword = async (req, res) => {
+  try {
+    const { newPassword, confirmPassword } = req.body;
+    if (!newPassword || newPassword.length < 6)
+      return res.status(400).json({ message: 'Password must be at least 6 characters' });
+    if (newPassword !== confirmPassword)
+      return res.status(400).json({ message: 'Passwords do not match' });
+
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    await User.findByIdAndUpdate(req.user._id, { password: hashedPassword });
+    res.json({ message: 'Password updated successfully' });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};

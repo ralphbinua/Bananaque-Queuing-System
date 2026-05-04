@@ -1,0 +1,625 @@
+/* ── BananaQue Staff Dashboard Theme ──────────────────────────── */
+
+/* ── Sidebar ──────────────────────────────────────────────────── */
+.staff-sidebar {
+  width: 200px;
+  min-height: 100vh;
+  background: #1e1a4a;
+  border-right: 1px solid #2e2a6e;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+.staff-sidebar-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 20px 18px 18px;
+  border-bottom: 1px solid #2e2a6e;
+}
+.staff-logo-icon {
+  font-size: 22px;
+  filter: grayscale(0.1);
+}
+.staff-logo-text {
+  font-weight: 800;
+  font-size: 16px;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+}
+.staff-sidebar-nav {
+  flex: 1;
+  padding-top: 12px;
+}
+.staff-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: calc(100% - 16px);
+  margin: 2px 8px;
+  padding: 10px 14px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 13.5px;
+  color: #a89fd8;
+  text-align: left;
+  border-radius: 8px;
+  transition: background 0.15s, color 0.15s;
+}
+.staff-nav-item:hover {
+  background: #2a2560;
+  color: #ffffff;
+}
+.staff-nav-item.active {
+  background: linear-gradient(135deg, #3a2f8a 0%, #2e2a6e 100%);
+  color: #ffffff;
+  font-weight: 600;
+}
+.staff-nav-icon {
+  font-size: 15px;
+  width: 20px;
+  text-align: center;
+}
+.staff-sidebar-footer {
+  padding: 14px 18px;
+  font-size: 11px;
+  color: #5a5290;
+  border-top: 1px solid #2e2a6e;
+  letter-spacing: 0.5px;
+}
+
+/* ── Topbar ───────────────────────────────────────────────────── */
+.staff-topbar {
+  background: #1e1a4a;
+  padding: 12px 28px;
+  border-bottom: 1px solid #2e2a6e;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.staff-topbar-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 700;
+  font-size: 15px;
+  color: #ffffff;
+}
+.staff-topbar-accent {
+  width: 3px;
+  height: 22px;
+  background: #f5a623;
+  border-radius: 4px;
+}
+.staff-topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.staff-user-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #2a2560;
+  border: 1px solid #3b3475;
+  border-radius: 20px;
+  padding: 4px 14px 4px 6px;
+}
+.staff-avatar {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #3b3475;
+  color: #c5bef0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+}
+.staff-user-email {
+  font-size: 12px;
+  color: #c5bef0;
+  max-width: 160px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.staff-user-caret {
+  font-size: 10px;
+  color: #a89fd8;
+  margin-left: 2px;
+}
+.staff-signout-btn {
+  background: transparent;
+  border: 1px solid rgba(229,115,115,0.3);
+  color: #e57373;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+.staff-signout-btn:hover {
+  background: rgba(229,115,115,0.1);
+  border-color: #e57373;
+}
+
+/* ── Main + Content ───────────────────────────────────────────── */
+.bq-app {
+  height: 100vh;
+  overflow: hidden;
+}
+.staff-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: #120f2e;
+  overflow: hidden;
+}
+.staff-content {
+  padding: 28px 32px 40px;
+  flex: 1;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+.staff-content::-webkit-scrollbar {
+  display: none;
+}
+
+/* ── Tabs ─────────────────────────────────────────────────────── */
+.stafAf-tabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 22px;
+}
+.staff-tab {
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 13.5px;
+  color: #a89fd8;
+  transition: color 0.15s, border-color 0.15s;
+  font-weight: 500;
+  margin-bottom: 25px;
+}
+.staff-tab:hover {
+  color: #ffffff;
+}
+.staff-tab.active {
+  color: #f5a623;
+  border-bottom-color: #f5a623;
+  font-weight: 600;
+}
+
+/* ── Now Serving Card ─────────────────────────────────────────── */
+.staff-serving-card {
+  background: rgba(42, 37, 96, 0.35);
+  border: 1.5px dashed #3b3475;
+  border-radius: 14px;
+  padding: 22px 24px;
+  margin-bottom: 24px;
+}
+.staff-serving-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+.staff-serving-info {
+  flex: 1;
+}
+.staff-serving-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #a89fd8;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.staff-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #5a5290;
+}
+.staff-dot.active {
+  background: #4caf50;
+  box-shadow: 0 0 8px rgba(76, 175, 80, 0.5);
+  animation: pulse-dot 1.5s infinite;
+}
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+.staff-serving-name {
+  font-size: 20px;
+  font-weight: 700;
+  color: #7a72a8;
+}
+.staff-serving-number {
+  color: #ffffff;
+  font-weight: 800;
+}
+.staff-call-btn {
+  background: #f5a623;
+  color: #1a1400;
+  border: none;
+  padding: 10px 22px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 700;
+  transition: background 0.15s, transform 0.1s;
+  white-space: nowrap;
+}
+.staff-call-btn:hover {
+  background: #e09518;
+  transform: translateY(-1px);
+}
+.staff-call-btn:active {
+  transform: translateY(0);
+}
+
+/* Stats row */
+.staff-serving-stats {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  padding-top: 16px;
+  border-top: 1px dashed #3b3475;
+}
+.staff-stat {
+  padding: 0 24px 0 0;
+}
+.staff-stat-value {
+  font-size: 26px;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1;
+}
+.staff-stat-label {
+  font-size: 10.5px;
+  font-weight: 600;
+  color: #a89fd8;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+.staff-stat-divider {
+  width: 1px;
+  height: 36px;
+  background: #3b3475;
+  margin: 0 24px 0 0;
+}
+
+/* ── Waiting List ─────────────────────────────────────────────── */
+.staff-waiting-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+.staff-waiting-title {
+  font-weight: 700;
+  font-size: 16px;
+  color: #ffffff;
+  margin: 0;
+}
+.staff-queue-count {
+  background: #2a2560;
+  border: 1px solid #3b3475;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  color: #c5bef0;
+  font-weight: 500;
+}
+.staff-waiting-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.staff-waiting-item {
+  background: #1e1a4a;
+  border: 1px solid #2e2a6e;
+  border-radius: 12px;
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: border-color 0.15s;
+}
+.staff-waiting-item:hover {
+  border-color: #3b3475;
+}
+.staff-waiting-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.staff-position {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #2a2560;
+  border: 1.5px solid #3b3475;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  color: #c5bef0;
+  flex-shrink: 0;
+}
+.staff-q-number {
+  font-size: 22px;
+  font-weight: 800;
+  color: #ffffff;
+  min-width: 50px;
+}
+.staff-customer-info {
+  display: flex;
+  flex-direction: column;
+}
+.staff-customer-email {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #ffffff;
+}
+.staff-customer-time {
+  font-size: 12px;
+  color: #7a72a8;
+  margin-top: 2px;
+}
+.staff-waiting-actions {
+  display: flex;
+  gap: 8px;
+}
+.staff-skip-btn {
+  background: transparent;
+  border: 1px solid #3b3475;
+  color: #c5bef0;
+  padding: 6px 18px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+}
+.staff-skip-btn:hover {
+  background: rgba(255,255,255,0.04);
+  border-color: #a89fd8;
+  color: #ffffff;
+}
+.staff-cancel-btn {
+  background: rgba(229,115,115,0.1);
+  border: 1px solid rgba(229,115,115,0.35);
+  color: #e57373;
+  padding: 6px 18px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+.staff-cancel-btn:hover {
+  background: rgba(229,115,115,0.18);
+  border-color: #e57373;
+}
+
+/* ── Section title ────────────────────────────────────────────── */
+.staff-section-title {
+  font-weight: 700;
+  font-size: 16px;
+  color: #ffffff;
+  margin: 0 0 14px;
+}
+
+/* ── Empty state ──────────────────────────────────────────────── */
+.staff-empty {
+  text-align: center;
+  color: #5a5290;
+  font-size: 14px;
+  padding: 40px 0;
+}
+
+/* ── My Account Card ──────────────────────────────────────────── */
+.staff-account-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 700px;
+}
+.staff-account-card {
+  background: rgba(42, 37, 96, 0.25);
+  border: 1.5px dashed #3b3475;
+  border-radius: 14px;
+  padding: 24px 28px;
+}
+.staff-account-field {
+  margin-bottom: 16px;
+}
+.staff-account-field:last-child {
+  margin-bottom: 0;
+}
+.staff-field-label {
+  font-size: 12px;
+  color: #a89fd8;
+  margin-bottom: 4px;
+  font-weight: 500;
+}
+.staff-field-value {
+  font-size: 15px;
+  color: #ffffff;
+  font-weight: 700;
+}
+
+/* Change Password form */
+.staff-pass-field {
+  margin-bottom: 16px;
+}
+.staff-pass-label {
+  display: block;
+  font-size: 13px;
+  color: #ffffff;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.staff-pass-input {
+  width: 100%;
+  padding: 12px 14px;
+  background: #120f2e;
+  border: 1px solid #3b3475;
+  border-radius: 10px;
+  color: #ffffff;
+  font-size: 13.5px;
+  outline: none;
+  transition: border-color 0.15s;
+  box-sizing: border-box;
+}
+.staff-pass-input::placeholder {
+  color: #5a5290;
+}
+.staff-pass-input:focus {
+  border-color: #f5a623;
+}
+.staff-update-pass-btn {
+  width: 100%;
+  background: #f5a623;
+  color: #1a1400;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 700;
+  transition: background 0.15s;
+  margin-top: 4px;
+}
+.staff-update-pass-btn:hover:not(:disabled) {
+  background: #e09518;
+}
+.staff-update-pass-btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+/* ── Serving Detail (when someone is being served) ────────────── */
+.staff-serving-detail {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 4px;
+}
+.staff-serving-big-number {
+  font-size: 38px;
+  font-weight: 900;
+  color: #ffffff;
+  line-height: 1;
+  letter-spacing: -1px;
+}
+.staff-serving-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.staff-serving-email {
+  font-size: 15px;
+  font-weight: 600;
+  color: #ffffff;
+}
+.staff-serving-sub {
+  font-size: 12.5px;
+  color: #7a72a8;
+}
+
+/* Serving buttons (Complete + Cancel stacked) */
+.staff-serving-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.staff-cancel-serving-btn {
+  background: rgba(229,115,115,0.1);
+  border: 1px solid rgba(229,115,115,0.4);
+  color: #e57373;
+  padding: 10px 22px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 700;
+  transition: background 0.15s, border-color 0.15s;
+  white-space: nowrap;
+}
+.staff-cancel-serving-btn:hover {
+  background: rgba(229,115,115,0.2);
+  border-color: #e57373;
+}
+
+/* ── Queue is Clear card ──────────────────────────────────────── */
+.staff-clear-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 48px 20px;
+  border: 1.5px dashed #2e2a6e;
+  border-radius: 14px;
+  background: rgba(42, 37, 96, 0.15);
+}
+.staff-clear-icon {
+  font-size: 32px;
+}
+.staff-clear-text {
+  font-size: 14px;
+  color: #7a72a8;
+  font-weight: 500;
+}
+
+/* ── Toast Notification ───────────────────────────────────────── */
+.staff-toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: #1e1a4a;
+  border: 1px solid #3b3475;
+  border-radius: 12px;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13.5px;
+  color: #ffffff;
+  font-weight: 500;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  z-index: 1000;
+  animation: toast-slide-in 0.3s ease-out;
+}
+@keyframes toast-slide-in {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.staff-toast-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #3b82f6;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  flex-shrink: 0;
+}

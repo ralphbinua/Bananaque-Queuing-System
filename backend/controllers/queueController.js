@@ -45,7 +45,7 @@ exports.createQueue = async (req, res) => {
 // PUT /api/queues/:id — admin only (toggle active, etc.)
 exports.updateQueue = async (req, res) => {
   try {
-    const queue = await Queue.findByIdAndUpdate(req.params.id, req.body, { new: true })
+    const queue = await Queue.findByIdAndUpdate(req.params.id, req.body, { returnDocument: 'after' })
       .populate('department', 'name');
     const io = getIO();
     if (io) io.emit('queueUpdated', { queueId: queue._id, isActive: queue.isActive, department: queue.department?.name });

@@ -41,6 +41,16 @@ exports.getAllStaff = async (req, res) => {
   }
 };
 
+// GET /api/admin/admins — list all admin accounts
+exports.getAllAdmins = async (req, res) => {
+  try {
+    const admins = await User.find({ role: 'admin' }).populate('department', 'name').select('-password');
+    res.json(admins);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
 // DELETE /api/admin/staff/:id — remove a staff user
 exports.deleteStaff = async (req, res) => {
   try {
@@ -58,7 +68,7 @@ exports.updateStaff = async (req, res) => {
     const update = {};
     if (name)         update.name       = name.trim();
     if (departmentId) update.department = departmentId;
-    const staff = await User.findByIdAndUpdate(req.params.id, update, { new: true })
+    const staff = await User.findByIdAndUpdate(req.params.id, update, { returnDocument: 'after' })
       .populate('department', 'name').select('-password');
     if (!staff) return res.status(404).json({ message: 'Staff not found' });
     res.json(staff);
@@ -148,7 +158,7 @@ exports.completeEntry = async (req, res) => {
     const entry = await QueueEntry.findByIdAndUpdate(
       req.params.entryId,
       { status: 'completed' },
-      { new: true }
+      { returnDocument: 'after' }
     );
     if (!entry) return res.status(404).json({ message: 'Entry not found' });
 
@@ -167,7 +177,7 @@ exports.removeEntry = async (req, res) => {
     const entry = await QueueEntry.findByIdAndUpdate(
       req.params.entryId,
       { status: 'cancelled' },
-      { new: true }
+      { returnDocument: 'after' }
     );
     if (!entry) return res.status(404).json({ message: 'Entry not found' });
 
@@ -331,7 +341,7 @@ exports.rejectNotification = async (req, res) => {
     const notif = await Notification.findByIdAndUpdate(
       req.params.id,
       { status: 'rejected', readByAdmin: true },
-      { new: true }
+      { returnDocument: 'after' }
     );
     if (!notif) return res.status(404).json({ message: 'Notification not found' });
 

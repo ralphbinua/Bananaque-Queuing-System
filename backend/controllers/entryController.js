@@ -24,7 +24,17 @@ exports.joinQueue = async (req, res) => {
     if (!queue)        return res.status(404).json({ message: 'Queue not found' });
     if (!queue.isActive) return res.status(400).json({ message: 'This queue is currently unavailable' });
 
-    const queueNumber  = queue.nextNumber;
+    // Auto-reset counter to 1 when the queue is completely empty
+    const activeCount = await QueueEntry.countDocuments({
+      queue: queueId,
+      status: { $in: ['waiting', 'called', 'serving'] },
+    });
+    if (activeCount === 0) {
+      await Queue.findByIdAndUpdate(queueId, { nextNumber: 1, currentNumber: 0 });
+      queue.nextNumber = 1;
+    }
+
+    const queueNumber = queue.nextNumber;
     await Queue.findByIdAndUpdate(queueId, { $inc: { nextNumber: 1 } });
 
     const transactionId = 'TXN-' + Date.now() + '-' + Math.random().toString(36).substr(2, 5).toUpperCase();
@@ -89,7 +99,7 @@ exports.cancelEntry = async (req, res) => {
     const entry = await QueueEntry.findOneAndUpdate(
       { customer: req.user._id, status: { $in: ['waiting'] } },
       { status: 'cancelled' },
-      { new: true }
+      { returnDocument: 'after' }
     ).populate('queue', 'name department');
 
     if (!entry) return res.status(404).json({ message: 'No cancellable queue entry found' });

@@ -29,7 +29,14 @@ const LogInPage = () => {
       localStorage.setItem("bq_token", res.data.token);
       localStorage.setItem("user", JSON.stringify(res.data.user));
 
-      navigate("/admin");
+      const role = res.data.user.role;
+      if (role === "admin") {
+        navigate("/admin");
+      } else if (role === "staff") {
+        navigate("/staff/dashboard");
+      } else {
+        navigate("/dashboard");
+      }
     } catch (err) {
       console.error(err);
       if (err.response?.status === 401 || err.response?.status === 400) {

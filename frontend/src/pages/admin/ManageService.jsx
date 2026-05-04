@@ -3,11 +3,13 @@ import api from '../../lib/axios'
 import AdminLayout from '../../components/AdminLayout'
 import '../../styles/admin.css'
 
+const DEPT_ICONS = { Cashier: '💰', Clinic: '🏥', Auditing: '📋' }
+
 const ManageService = () => {
   const [queues, setQueues] = useState([])
-  const [msg,    setMsg]    = useState('')
+  const [toast,  setToast]  = useState(null)
 
-  const flash = (m) => { setMsg(m); setTimeout(() => setMsg(''), 4000) }
+  const showToast = (m) => { setToast(m); setTimeout(() => setToast(null), 3500) }
 
   const load = useCallback(async () => {
     try {
@@ -21,67 +23,53 @@ const ManageService = () => {
   const toggle = async (q) => {
     try {
       await api.put(`/queues/${q._id}`, { isActive: !q.isActive })
-      flash(`${q.department?.name} queue ${!q.isActive ? 'enabled' : 'disabled'}`)
+      showToast(`${q.department?.name} ${!q.isActive ? 'enabled' : 'disabled'}`)
       load()
-    } catch (err) { flash(err.response?.data?.message || 'Error') }
+    } catch (err) { showToast(err.response?.data?.message || 'Error') }
   }
-
-  const reset = async (q) => {
-    try {
-      await api.post(`/queues/${q._id}/reset`)
-      flash(`${q.department?.name} queue reset`)
-      load()
-    } catch (err) { flash(err.response?.data?.message || 'Error') }
-  }
-
-  const DEPT_ICONS = { Cashier: '👥', Clinic: '🏥', Auditing: '📋' }
 
   return (
-    <AdminLayout title="Manage Service">
-      <h2 className="bq-page-title">⚙️ Manage Service</h2>
-      <p className="bq-page-subtitle">Enable or disable department queues.</p>
-
-      {msg && <div className="bq-flash">{msg}</div>}
+    <AdminLayout title="⚙️ Manage Service">
+      <h2 className="bq-page-title">Service Management</h2>
+      <p className="bq-page-subtitle">
+        Enable or <span style={{ color: '#e57373' }}>disable</span> transaction services for each department.
+      </p>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
         {queues.map(q => {
           const dname = q.department?.name || 'Queue'
+          const icon  = DEPT_ICONS[dname] || '🏢'
           return (
-            <div key={q._id} className="bq-serving-card" style={{ marginBottom: 0 }}>
-              <div>
-                <div style={{ fontWeight: 700, fontSize: 15, color: '#fff' }}>
-                  {DEPT_ICONS[dname] || '🏢'} {dname}
-                </div>
-                <div className="bq-muted mt-1" style={{ fontSize: 12 }}>
-                  Status:{' '}
-                  <b style={{ color: q.isActive ? '#4caf50' : '#e53e3e' }}>
-                    {q.isActive ? 'Active' : 'Disabled'}
-                  </b>
-                  &nbsp;|&nbsp; Current: #{q.currentNumber}
-                  &nbsp;|&nbsp; Next: #{q.nextNumber}
+            <div key={q._id} className="bq-toggle-row">
+              <div className="bq-toggle-info">
+                <span className="bq-toggle-icon">{icon}</span>
+                <div>
+                  <div className="bq-toggle-name">{dname}</div>
+                  <div className="bq-toggle-status">
+                    {q.isActive ? 'Accepting transactions' : 'Service disabled'}
+                  </div>
                 </div>
               </div>
-              <div className="d-flex gap-2">
-                <button className="bq-ghost-btn" style={{ fontSize: 12 }} onClick={() => reset(q)}>
-                  Reset
-                </button>
-                <button
-                  className="bq-ghost-btn"
-                  style={{
-                    fontSize: 12,
-                    borderColor: q.isActive ? '#e53e3e' : '#4caf50',
-                    color:       q.isActive ? '#e53e3e' : '#4caf50',
-                  }}
-                  onClick={() => toggle(q)}
-                >
-                  {q.isActive ? 'Disable' : 'Enable'}
-                </button>
-              </div>
+              <label className="bq-toggle-switch">
+                <input
+                  type="checkbox"
+                  checked={!!q.isActive}
+                  onChange={() => toggle(q)}
+                />
+                <span className="bq-toggle-slider" />
+              </label>
             </div>
           )
         })}
-        {queues.length === 0 && <p className="bq-muted">No queues found.</p>}
+        {queues.length === 0 && <p className="bq-muted">No services found.</p>}
       </div>
+
+      {toast && (
+        <div className="bq-toast">
+          <span className="bq-toast-icon">✔</span>
+          <span>{toast}</span>
+        </div>
+      )}
     </AdminLayout>
   )
 }

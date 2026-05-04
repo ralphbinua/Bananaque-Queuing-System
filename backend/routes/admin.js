@@ -3,7 +3,7 @@ const router  = express.Router();
 const { protect } = require('../middleware/auth');
 const { authorize } = require('../middleware/roles');
 const {
-  createStaff, getAllStaff, deleteStaff, updateStaff,
+  createStaff, getAllStaff, getAllAdmins, deleteStaff, updateStaff,
   callNext, completeEntry, removeEntry,
   getAllTransactions, getDepartments, createDepartment,
   getOverview, getAllCustomers,
@@ -16,6 +16,7 @@ router.post('/departments',                       protect, authorize('admin'), c
 
 // Staff management (admin only)
 router.get('/staff',                              protect, authorize('admin'), getAllStaff);
+router.get('/admins',                             protect, authorize('admin'), getAllAdmins);
 router.post('/staff',                             protect, authorize('admin'), createStaff);
 router.put('/staff/:id',                          protect, authorize('admin'), updateStaff);
 router.delete('/staff/:id',                       protect, authorize('admin'), deleteStaff);
